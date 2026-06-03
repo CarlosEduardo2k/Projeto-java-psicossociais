@@ -23,14 +23,12 @@ public class PainelUsuario extends JPanel {
         JLabel lblCpf = new JLabel("CPF:");
         txtCpf = new JTextField(15);
         btnEntrar = new JButton("Entrar como Usuário");
-
         // Evento do botão
         btnEntrar.addActionListener(e -> {
             String nome = txtNome.getText();
             String cpf = txtCpf.getText();
             JOptionPane.showMessageDialog(this, "Bem-vindo, " + nome + "!\nCPF: " + cpf);
         });
-
         // Alinhamentos
         lblNome.setAlignmentX(Component.CENTER_ALIGNMENT);
         txtNome.setMaximumSize(new Dimension(200, 30));

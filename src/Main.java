@@ -1,5 +1,4 @@
 import Painel.TelaAcesso;
-
 import javax.swing.SwingUtilities;
 
 public class Main {

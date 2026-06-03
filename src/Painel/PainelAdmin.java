@@ -28,7 +28,11 @@ public class PainelAdmin extends JPanel {
             String senha = new String(txtSenha.getPassword());
 
             if(login.equals("admin") && senha.equals("123")) {
-                JOptionPane.showMessageDialog(this, "Acesso Concedido ao painel de Administração!");
+                JFrame janelaLogin = (JFrame) SwingUtilities.getWindowAncestor(this);
+                janelaLogin.dispose();
+
+                TelaAdmin telaGerencial = new TelaAdmin();
+                telaGerencial.setVisible(true);
             } else {
                 JOptionPane.showMessageDialog(this, "Login ou Senha incorretos!", "Erro", JOptionPane.ERROR_MESSAGE);
             }
