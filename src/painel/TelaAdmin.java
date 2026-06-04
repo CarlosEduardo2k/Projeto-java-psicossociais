@@ -1,4 +1,6 @@
-package Painel;
+package painel;
+
+import telaInicial.TelaAcesso;
 
 import javax.swing.*;
 import java.awt.*;
@@ -7,11 +9,11 @@ public class TelaAdmin extends JFrame {
 
     public TelaAdmin() {
         setTitle("Área Administrativa");
-        setSize(900, 600); // Janela maior para caber os dados corporativos
+        setSize(900, 600); // Janela maior para caber todos os dados
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         setExtendedState(JFrame.MAXIMIZED_BOTH);
-        setLayout(new BorderLayout()); // Perfeito para organizar Topo + Centro
+        setLayout(new BorderLayout());
 
         // 1. Criando a Barra de Topo (Header)
         JPanel painelTopo = new JPanel(new BorderLayout());
@@ -25,9 +27,10 @@ public class TelaAdmin extends JFrame {
         JButton btnSair = new JButton("Sair");
         btnSair.setFocusPainted(false);
         btnSair.addActionListener(e -> {
-            // Fecha a tela atual e pode voltar para a tela de login se quiser
-            this.dispose();
-            JOptionPane.showMessageDialog(null, "Sessão encerrada.");
+        // Fecha a tela atual e voltar para a tela de login
+        this.dispose();
+        TelaAcesso telaInicial = new TelaAcesso();
+        telaInicial.setVisible(true);
         });
 
         painelTopo.add(lblTituloSistema, BorderLayout.WEST);

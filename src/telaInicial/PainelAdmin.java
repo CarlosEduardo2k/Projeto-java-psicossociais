@@ -1,4 +1,6 @@
-package Painel;
+package telaInicial;
+
+import painel.TelaAdmin;
 
 import javax.swing.*;
 import java.awt.*;
@@ -11,7 +13,6 @@ public class PainelAdmin extends JPanel {
     public PainelAdmin() {
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         setBorder(BorderFactory.createTitledBorder("Acesso da Administração"));
-        setBackground(new Color(255, 245, 238));
 
         inicializarComponentes();
     }

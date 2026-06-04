@@ -1,4 +1,4 @@
-package Painel.Questionario;
+package questionario;
 
 public enum Categoria {
     OT,

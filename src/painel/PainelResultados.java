@@ -1,4 +1,4 @@
-package Painel;
+package painel;
 
 import javax.swing.*;
 import java.awt.*;

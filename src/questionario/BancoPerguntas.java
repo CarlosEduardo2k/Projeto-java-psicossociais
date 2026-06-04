@@ -1,4 +1,4 @@
-package Painel.Questionario;
+package questionario;
 import java.util.ArrayList;
 import java.util.List;
 

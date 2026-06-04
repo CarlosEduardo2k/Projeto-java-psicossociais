@@ -1,4 +1,6 @@
-package Painel;
+package telaInicial;
+import painel.TelaQuestionario;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -12,7 +14,6 @@ public class PainelUsuario extends JPanel {
     public PainelUsuario() {
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         setBorder(BorderFactory.createTitledBorder("Acesso do Usuário"));
-        setBackground(new Color(240, 248, 255));
 
         inicializarComponentes();
     }
@@ -27,7 +28,17 @@ public class PainelUsuario extends JPanel {
         btnEntrar.addActionListener(e -> {
             String nome = txtNome.getText();
             String cpf = txtCpf.getText();
-            JOptionPane.showMessageDialog(this, "Bem-vindo, " + nome + "!\nCPF: " + cpf);
+
+            if (nome.trim().isEmpty()|| cpf.trim().isEmpty()){
+                JOptionPane.showMessageDialog(this, "Por favor, preencha o Nome e o CPF!", "Erro", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            JFrame janelaLogin = (JFrame) SwingUtilities.getWindowAncestor(this);
+            if (janelaLogin != null) {
+                janelaLogin.dispose();
+            }
+            TelaQuestionario  TelaQuestoes = new TelaQuestionario();
+            TelaQuestoes.setVisible(true);
         });
         // Alinhamentos
         lblNome.setAlignmentX(Component.CENTER_ALIGNMENT);

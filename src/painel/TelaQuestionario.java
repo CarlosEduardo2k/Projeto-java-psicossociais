@@ -1,11 +1,11 @@
-package Painel;
+package painel;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.List;
 
-import Painel.Questionario.BancoPerguntas;
-import Painel.Questionario.Pergunta;
+import questionario.BancoPerguntas;
+import questionario.Pergunta;
 
 
 
