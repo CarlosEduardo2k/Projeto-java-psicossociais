@@ -1,6 +1,6 @@
 package principal;
 
-import telaInicial.TelaAcesso;
+import painel.TelaQuestionario;
 
 import javax.swing.SwingUtilities;
 
@@ -9,8 +9,8 @@ public class Main {
         // Inicialização segura do Swing na Thread correta
         SwingUtilities.invokeLater(() -> {
 
-            TelaAcesso telaInicial = new TelaAcesso();
-            telaInicial.setVisible(true);
+            TelaQuestionario tela = new TelaQuestionario();
+            tela.setVisible(true);
         });
     }
 }
