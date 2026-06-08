@@ -11,7 +11,8 @@ import questionario.Pergunta;
 import questionario.Categoria;
 
 public class TelaQuestionario extends JFrame {
-
+    private String nome;
+    private String cpf;
     // Componentes principais da tela
     private JPanel painelPrincipal;
 
@@ -20,8 +21,9 @@ public class TelaQuestionario extends JFrame {
 
     private List<Pergunta> perguntas;
 
-    public TelaQuestionario() {
-
+    public TelaQuestionario(String nome, String cpf) {
+        this.nome = nome;
+        this.cpf = cpf;
         // =========================
         // CONFIGURAÇÕES INICIAIS
         // =========================
