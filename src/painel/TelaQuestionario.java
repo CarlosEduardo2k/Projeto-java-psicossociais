@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 
+import dao.FuncionarioDAO;
+import model.Funcionario;
 import questionario.BancoPerguntas;
 import questionario.Pergunta;
 import questionario.Categoria;
@@ -356,6 +358,22 @@ public class TelaQuestionario extends JFrame {
 
 
                 }
+                Funcionario funcionario =
+                        new Funcionario(
+                                nome,
+                                cpf
+                        );
+
+                FuncionarioDAO funcionarioDAO =
+                        new FuncionarioDAO();
+
+                int funcionarioId =
+                        funcionarioDAO.salvar(funcionario);
+
+                System.out.println(
+                        "Funcionário salvo com ID: "
+                                + funcionarioId
+                );
                 System.out.println("OT = " + somaOT);
                 System.out.println("CT = " + somaCT);
                 System.out.println("RT = " + somaRT);
