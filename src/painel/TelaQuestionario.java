@@ -10,6 +10,7 @@ import questionario.BancoPerguntas;
 import questionario.Pergunta;
 import questionario.Categoria;
 
+
 public class TelaQuestionario extends JFrame {
 
     // Componentes principais da tela
@@ -21,7 +22,7 @@ public class TelaQuestionario extends JFrame {
     private List<Pergunta> perguntas;
 
     public TelaQuestionario() {
-
+            setLayout(new BorderLayout());
         // =========================
         // CONFIGURAÇÕES INICIAIS
         // =========================
@@ -117,7 +118,7 @@ public class TelaQuestionario extends JFrame {
         painelCabecalho.add(Box.createVerticalStrut(5));
         painelCabecalho.add(lblEscala);
 
-        painelPrincipal.add(painelCabecalho);
+//        painelPrincipal.add(painelCabecalho);
         painelPrincipal.add(Box.createVerticalStrut(20));
 
         // =========================
@@ -377,7 +378,10 @@ public class TelaQuestionario extends JFrame {
         // CONFIGURAÇÕES DA JANELA
         // =========================
 
-        add(scroll);
+        //add(scroll);
+
+        add(painelCabecalho, BorderLayout.NORTH);
+        add(scroll,BorderLayout.CENTER);
 
         setTitle(
                 "Questionário Psicossocial"
@@ -387,6 +391,8 @@ public class TelaQuestionario extends JFrame {
                 900,
                 600
         );
+
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
 
         setDefaultCloseOperation(
                 JFrame.EXIT_ON_CLOSE

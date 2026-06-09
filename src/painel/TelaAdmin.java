@@ -9,25 +9,24 @@ public class TelaAdmin extends JFrame {
 
     public TelaAdmin() {
         setTitle("Área Administrativa");
-        setSize(900, 600); // Janela maior para caber todos os dados
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setLayout(new BorderLayout());
 
-        // 1. Criando a Barra de Topo (Header)
+        // 1. Criação da Barra de Topo
         JPanel painelTopo = new JPanel(new BorderLayout());
-        painelTopo.setBackground(new Color(25, 60, 122)); // Azul escuro idêntico ao da imagem
+        painelTopo.setBackground(new Color(25, 60, 122));
         painelTopo.setBorder(BorderFactory.createEmptyBorder(8, 15, 8, 15)); // Padding interno
 
         JLabel lblTituloSistema = new JLabel("Gestão - Análise Psicossocial");
         lblTituloSistema.setFont(new Font("Arial", Font.BOLD, 14));
         lblTituloSistema.setForeground(Color.WHITE);
 
+        // Fecha a tela atual e voltar para a tela de login
         JButton btnSair = new JButton("Sair");
         btnSair.setFocusPainted(false);
         btnSair.addActionListener(e -> {
-        // Fecha a tela atual e voltar para a tela de login
         this.dispose();
         TelaAcesso telaInicial = new TelaAcesso();
         telaInicial.setVisible(true);
