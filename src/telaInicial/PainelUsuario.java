@@ -37,7 +37,7 @@ public class PainelUsuario extends JPanel {
             if (janelaLogin != null) {
                 janelaLogin.dispose();
             }
-            TelaQuestionario  TelaQuestoes = new TelaQuestionario();
+            TelaQuestionario  TelaQuestoes = new TelaQuestionario(nome, cpf);
             TelaQuestoes.setVisible(true);
         });
         // Alinhamentos
