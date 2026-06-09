@@ -20,7 +20,8 @@ public class TelaQuestionario extends JFrame {
 
     private List<Pergunta> perguntas;
 
-    public TelaQuestionario() {
+    public TelaQuestionario(String nome, String cpf) {
+        setLayout(new BorderLayout());
 
         // =========================
         // CONFIGURAÇÕES INICIAIS
@@ -117,7 +118,7 @@ public class TelaQuestionario extends JFrame {
         painelCabecalho.add(Box.createVerticalStrut(5));
         painelCabecalho.add(lblEscala);
 
-        painelPrincipal.add(painelCabecalho);
+        //painelPrincipal.add(painelCabecalho);
         painelPrincipal.add(Box.createVerticalStrut(20));
 
         // =========================
@@ -377,27 +378,17 @@ public class TelaQuestionario extends JFrame {
         // CONFIGURAÇÕES DA JANELA
         // =========================
 
-        add(scroll);
+        add(painelCabecalho, BorderLayout.NORTH);
+        add(scroll, BorderLayout.CENTER);
 
-        setTitle(
-                "Questionário Psicossocial"
-        );
+        setTitle("Questionário Psicossocial");
 
-        setSize(
-                900,
-                600
-        );
+        setSize(900, 600);
 
-        setDefaultCloseOperation(
-                JFrame.EXIT_ON_CLOSE
-        );
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
 
-        setLocationRelativeTo(
-                null
-        );
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        setVisible(
-                true
-        );
+        setVisible(true);
     }
 }
