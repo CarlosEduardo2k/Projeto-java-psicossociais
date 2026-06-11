@@ -8,51 +8,64 @@ import java.awt.*;
 public class TelaAdmin extends JFrame {
 
     public TelaAdmin() {
-        setTitle("Área Administrativa");
+        // Configurações básicas da janela principal
+        setTitle("Área Administrativa - Dashboard");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setLayout(new BorderLayout());
 
-        // 1. Criação da Barra de Topo
+        // ==================================================
+        // 1. BARRA DE TOPO (HEADER)
+        // ==================================================
         JPanel painelTopo = new JPanel(new BorderLayout());
-        painelTopo.setBackground(new Color(25, 60, 122));
-        painelTopo.setBorder(BorderFactory.createEmptyBorder(8, 15, 8, 15)); // Padding interno
+        painelTopo.setBackground(new Color(25, 70, 130)); // Azul padrão do seu questionário
+        painelTopo.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20)); // Padding interno
 
-        JLabel lblTituloSistema = new JLabel("Gestão - Análise Psicossocial");
-        lblTituloSistema.setFont(new Font("Arial", Font.BOLD, 14));
+        JLabel lblTituloSistema = new JLabel("Gestão - Análise Psicossocial (NR-01)");
+        lblTituloSistema.setFont(new Font("Segoe UI", Font.BOLD, 16));
         lblTituloSistema.setForeground(Color.WHITE);
 
-        // Fecha a tela atual e voltar para a tela de login
+        // Botão Sair com estilo Flat moderno
         JButton btnSair = new JButton("Sair");
+        btnSair.setFont(new Font("Segoe UI", Font.BOLD, 13));
+        btnSair.setBackground(new Color(204, 51, 51)); // Vermelho discreto para saída
+        btnSair.setForeground(Color.WHITE);
         btnSair.setFocusPainted(false);
+        btnSair.setBorder(BorderFactory.createEmptyBorder(6, 16, 6, 16));
+        btnSair.setCursor(new Cursor(Cursor.HAND_CURSOR));
+
         btnSair.addActionListener(e -> {
-        this.dispose();
-        TelaAcesso telaInicial = new TelaAcesso();
-        telaInicial.setVisible(true);
+            this.dispose();
+            TelaAcesso telaInicial = new TelaAcesso();
+            telaInicial.setVisible(true);
         });
 
         painelTopo.add(lblTituloSistema, BorderLayout.WEST);
         painelTopo.add(btnSair, BorderLayout.EAST);
 
-        // 2. Criando o Sistema de Abas (JTabbedPane)
+        // ==================================================
+        // 2. SISTEMA DE ABAS (TABBED PANE)
+        // ==================================================
         JTabbedPane abas = new JTabbedPane();
-        abas.setFont(new Font("Arial", Font.BOLD, 13));
+        abas.setFont(new Font("Segoe UI", Font.BOLD, 13));
 
-        // Cria a aba de resultados usando o painel que fizemos acima
-        PainelResultados abaResultados = new PainelResultados();
+        // Inicialização dos painéis reais (refeita de forma limpa)
+        //PainelResultados abaResultados = new PainelResultados();
+        PainelRespostasIndividuais abaRespostasIndividuais = new PainelRespostasIndividuais();
+        PainelCadastroAdmin abaCadastroAdmin = new PainelCadastroAdmin();
 
-        // Criando painéis vazios temporários para as outras abas apenas para demonstração
-        JPanel abaRespostasIndividuais = new JPanel();
-        JPanel abaRelatorioGeral = new JPanel();
+        // Adicionando as abas ativas ao componente
+        //abas.addTab("Resultados Gerais", abaResultados);
+        abas.addTab("Respostas Individuais", abaRespostasIndividuais); // Ativada!
+        abas.addTab("Cadastrar Administrador", abaCadastroAdmin);
 
-        // Adicionando as abas ao componente de abas
-        abas.addTab("Resultados", abaResultados);
-        abas.addTab("Respostas Individuais", abaRespostasIndividuais);
-        abas.addTab("Relatório Geral", abaRelatorioGeral);
-
-        // 3. Juntando Tudo na Janela Principal
+        // ==================================================
+        // 3. MONTAGEM FINAL DA TELA
+        // ==================================================
         add(painelTopo, BorderLayout.NORTH); // Topo fixo no Norte
-        add(abas, BorderLayout.CENTER);      // Abas ocupam todo o resto do espaço (Centro)
+        add(abas, BorderLayout.CENTER);      // Abas ocupam todo o resto do espaço
+
+        // Garante que a tela abra centralizada se não estiver maximizada
+        setLocationRelativeTo(null);
     }
 }

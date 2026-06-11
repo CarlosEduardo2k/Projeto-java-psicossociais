@@ -379,24 +379,17 @@ public class TelaQuestionario extends JFrame {
 
                 // Cria o objeto funcionário com os dados recebidos
                 // da tela de login
-                Funcionario funcionario =
-                        new Funcionario(
-                                nome,
-                                cpf
-                        );
+                Funcionario funcionario = new Funcionario(nome, cpf);
 
                 // Salva o funcionário no banco
-                FuncionarioDAO funcionarioDAO =
-                        new FuncionarioDAO();
+                FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
 
                 // Recebe o ID gerado pelo banco
-                int funcionarioId =
-                        funcionarioDAO.salvar(funcionario);
+                int funcionarioId = funcionarioDAO.salvar(funcionario);
 
                 // Cria o objeto contendo os resultados do questionário
-                ResultadoCategoria resultado =
-                        new ResultadoCategoria(
-                                funcionarioId,
+                ResultadoCategoria resultado = new ResultadoCategoria(
+                        funcionarioId,
                                 somaOT,
                                 somaCT,
                                 somaRT,
@@ -407,15 +400,13 @@ public class TelaQuestionario extends JFrame {
                         );
 
                 // Salva as pontuações das categorias no banco
-                ResultadoCategoriaDAO resultadoDAO =
-                        new ResultadoCategoriaDAO();
+                ResultadoCategoriaDAO resultadoDAO = new ResultadoCategoriaDAO();
 
                 resultadoDAO.salvar(resultado);
 
                 // Logs para conferência durante o desenvolvimento
                 System.out.println(
-                        "Funcionário salvo com ID: "
-                                + funcionarioId
+                        "Funcionário salvo com ID: " + funcionarioId
                 );
 
                 System.out.println("OT = " + somaOT);
@@ -425,6 +416,9 @@ public class TelaQuestionario extends JFrame {
                 System.out.println("LA = " + somaLA);
                 System.out.println("DE = " + somaDE);
                 System.out.println("DP = " + somaDP);
+
+                JOptionPane.showMessageDialog(this,"Respostas inviadas com sucesso! \n Obrigado por Participar ", "Concluído", JOptionPane.INFORMATION_MESSAGE);
+                dispose();
             }
         });
 

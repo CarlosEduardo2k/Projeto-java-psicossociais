@@ -3,10 +3,9 @@ package dao;
 import conexao.Conexao;
 import model.Funcionario;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /*
  * DAO responsável por todas as operações da tabela "funcionario".
@@ -44,7 +43,6 @@ public class FuncionarioDAO {
                 "INSERT INTO funcionario(nome, cpf) VALUES (?, ?) RETURNING id";
 
         try (
-
                 /*
                  * Abre uma conexão com o banco.
                  *
@@ -61,10 +59,7 @@ public class FuncionarioDAO {
                  * - passar parâmetros de forma segura
                  * - evitar SQL Injection
                  */
-                PreparedStatement stmt =
-                        conn.prepareStatement(sql)
-
-        ) {
+                PreparedStatement stmt = conn.prepareStatement(sql)){
 
             /*
              * Preenche o primeiro ? da consulta.
@@ -75,20 +70,14 @@ public class FuncionarioDAO {
              *
              * Primeiro ? = nome
              */
-            stmt.setString(
-                    1,
-                    funcionario.getNome()
-            );
+            stmt.setString(1, funcionario.getNome());
 
             /*
              * Preenche o segundo ? da consulta.
              *
              * Segundo ? = cpf
              */
-            stmt.setString(
-                    2,
-                    funcionario.getCpf()
-            );
+            stmt.setString(2, funcionario.getCpf());
 
             /*
              * Executa o SQL no banco.
@@ -163,5 +152,27 @@ public class FuncionarioDAO {
          * podemos usar -1 como indicador de falha.
          */
         return -1;
+    }
+
+    public List<Funcionario> listarTodos() {
+        List<Funcionario> listaFuncionarios = new ArrayList<>();
+        String sql = "SELECT id, nome, cpf FROM funcionario ORDER BY nome ASC";
+
+        try(Connection conn = Conexao.conectar();
+        PreparedStatement stmt = conn.prepareStatement(sql);
+        ResultSet rs = stmt.executeQuery()){
+
+            while (rs.next()){
+                // Passamos o nome e o cpf direto no construtor que o seu Model exige!
+                Funcionario f = new Funcionario(rs.getString("nome"), rs.getString("cpf"));
+                // O id a gente puxa separado, já que o compilador não reclamou do setId
+                f.setId(rs.getInt("id"));
+                // Adiciona o funcionário pronto na lista
+                listaFuncionarios.add(f);
+            }
+        } catch (java.sql.SQLException e){
+            System.out.println("Erro ao listar funcionarios: "+ e.getSQLState());
+        }
+       return listaFuncionarios;
     }
 }

@@ -2,6 +2,7 @@ package dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import conexao.Conexao;
@@ -46,4 +47,36 @@ public class ResultadoCategoriaDAO {
             throw new RuntimeException(e);
         }
     }
+
+    public ResultadoCategoria buscarPorFuncionarioId(int funcionarioId) {
+        // Ajuste o nome da tabela e das colunas se no seu banco estiver diferente
+        String sql = "SELECT * FROM resultado_categoria WHERE funcionario_id = ?";
+
+        try (Connection conn = Conexao.conectar();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, funcionarioId);
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    // Instancia o objeto usando as notas gravadas no banco
+                    // Certifique-se de usar os nomes exatos das suas colunas do banco aqui (ex: "soma_ot" ou "ot")
+                    return new ResultadoCategoria(
+                            rs.getInt("funcionario_id"),
+                            rs.getInt("soma_ot"),
+                            rs.getInt("soma_ct"),
+                            rs.getInt("soma_rt"),
+                            rs.getInt("soma_rp"),
+                            rs.getInt("soma_la"),
+                            rs.getInt("soma_de"),
+                            rs.getInt("soma_dp")
+                    );
+                }
+            }
+        } catch (java.sql.SQLException e) {
+            System.out.println("Erro ao buscar notas do funcionário: " + e.getMessage());
+        }
+        return null; // Retorna null se não encontrar nada
+    }
+
 }
