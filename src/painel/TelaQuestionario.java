@@ -7,7 +7,9 @@ import java.util.List;
 
 
 import dao.FuncionarioDAO;
+import dao.ResultadoCategoriaDAO;
 import model.Funcionario;
+import model.ResultadoCategoria;
 import questionario.BancoPerguntas;
 import questionario.Pergunta;
 import questionario.Categoria;
@@ -51,6 +53,7 @@ public class TelaQuestionario extends JFrame {
         JScrollPane scroll = new JScrollPane(
                 painelPrincipal
         );
+        scroll.getVerticalScrollBar().setUnitIncrement(15);
 
         // =========================
         // CARREGAMENTO DAS PERGUNTAS
@@ -255,9 +258,12 @@ public class TelaQuestionario extends JFrame {
         // BOTÃO FINALIZAR
         // =========================
 
+        // Botão responsável por finalizar e enviar o questionário
         JButton btnFinalizar = new JButton(
                 "Finalizar Questionário"
         );
+
+// Configurações visuais do botão
         btnFinalizar.setFont(
                 new Font(
                         "Segoe UI",
@@ -289,11 +295,12 @@ public class TelaQuestionario extends JFrame {
                 )
         );
 
+// Evento executado ao clicar no botão
         btnFinalizar.addActionListener(e -> {
 
             boolean todasRespondidas = true;
 
-            // Verifica se existe pergunta sem resposta
+            // Verifica se todas as perguntas foram respondidas
             for (ButtonGroup grupo : gruposRespostas) {
 
                 if (grupo.getSelection() == null) {
@@ -303,6 +310,7 @@ public class TelaQuestionario extends JFrame {
                 }
             }
 
+            // Impede o envio caso existam perguntas sem resposta
             if (!todasRespondidas) {
 
                 JOptionPane.showMessageDialog(
@@ -310,7 +318,10 @@ public class TelaQuestionario extends JFrame {
                         "Existem perguntas sem resposta!"
                 );
 
-            } else{
+            } else {
+
+                // Variáveis responsáveis por acumular a pontuação
+                // de cada categoria do questionário
                 int somaOT = 0;
                 int somaCT = 0;
                 int somaRT = 0;
@@ -319,61 +330,94 @@ public class TelaQuestionario extends JFrame {
                 int somaDE = 0;
                 int somaDP = 0;
 
+                // Percorre todas as perguntas respondidas
                 for(int i = 0; i < perguntas.size(); i++) {
 
                     Pergunta pergunta = perguntas.get(i);
 
                     ButtonGroup grupo = gruposRespostas.get(i);
 
+                    // Obtém a resposta marcada pelo usuário
                     int resposta = Integer.parseInt(
                             grupo.getSelection().getActionCommand()
-
                     );
+
+                    // Inverte a pontuação caso a pergunta seja invertida
                     if(pergunta.isInvertida()){
                         resposta = 6 - resposta;
                     }
+
+                    // Soma a resposta na categoria correspondente
                     if(pergunta.getCategoria() == Categoria.OT){
                         somaOT += resposta;
                     }
+
                     if(pergunta.getCategoria() == Categoria.CT){
                         somaCT += resposta;
                     }
+
                     if(pergunta.getCategoria() == Categoria.RT){
                         somaRT += resposta;
                     }
+
                     if(pergunta.getCategoria() == Categoria.RP){
                         somaRP += resposta;
                     }
+
                     if(pergunta.getCategoria() == Categoria.LA){
                         somaLA += resposta;
                     }
+
                     if(pergunta.getCategoria() == Categoria.DE){
                         somaDE += resposta;
                     }
+
                     if(pergunta.getCategoria() == Categoria.DP){
                         somaDP += resposta;
                     }
-
-
-
-
                 }
+
+                // Cria o objeto funcionário com os dados recebidos
+                // da tela de login
                 Funcionario funcionario =
                         new Funcionario(
                                 nome,
                                 cpf
                         );
 
+                // Salva o funcionário no banco
                 FuncionarioDAO funcionarioDAO =
                         new FuncionarioDAO();
 
+                // Recebe o ID gerado pelo banco
                 int funcionarioId =
                         funcionarioDAO.salvar(funcionario);
 
+                // Cria o objeto contendo os resultados do questionário
+                ResultadoCategoria resultado =
+                        new ResultadoCategoria(
+                                funcionarioId,
+                                somaOT,
+                                somaCT,
+                                somaRT,
+                                somaRP,
+                                somaLA,
+                                somaDE,
+                                somaDP
+                        );
+
+                // Salva as pontuações das categorias no banco
+                ResultadoCategoriaDAO resultadoDAO =
+                        new ResultadoCategoriaDAO();
+
+                resultadoDAO.salvar(resultado);
+
+                // Logs para conferência durante o desenvolvimento
                 System.out.println(
                         "Funcionário salvo com ID: "
                                 + funcionarioId
                 );
+
                 System.out.println("OT = " + somaOT);
                 System.out.println("CT = " + somaCT);
                 System.out.println("RT = " + somaRT);
@@ -381,15 +425,15 @@ public class TelaQuestionario extends JFrame {
                 System.out.println("LA = " + somaLA);
                 System.out.println("DE = " + somaDE);
                 System.out.println("DP = " + somaDP);
-
             }
-
         });
 
+// Espaçamento antes do botão
         painelPrincipal.add(
                 Box.createVerticalStrut(20)
         );
 
+// Adiciona o botão ao painel principal
         painelPrincipal.add(btnFinalizar);
 
         // =========================
