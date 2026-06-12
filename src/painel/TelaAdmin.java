@@ -51,12 +51,12 @@ public class TelaAdmin extends JFrame {
 
         // Inicialização dos painéis reais (refeita de forma limpa)
         //PainelResultados abaResultados = new PainelResultados();
-        PainelRespostasIndividuais abaRespostasIndividuais = new PainelRespostasIndividuais();
+        PainelResultadosCategoria abaResultadosCategoria = new PainelResultadosCategoria();
         PainelCadastroAdmin abaCadastroAdmin = new PainelCadastroAdmin();
 
         // Adicionando as abas ativas ao componente
         //abas.addTab("Resultados Gerais", abaResultados);
-        abas.addTab("Respostas Individuais", abaRespostasIndividuais); // Ativada!
+        abas.addTab("Respostas por Categoria", abaResultadosCategoria);// Ativada!
         abas.addTab("Cadastrar Administrador", abaCadastroAdmin);
 
         // ==================================================

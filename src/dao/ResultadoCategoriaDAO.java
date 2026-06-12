@@ -63,13 +63,13 @@ public class ResultadoCategoriaDAO {
                     // Certifique-se de usar os nomes exatos das suas colunas do banco aqui (ex: "soma_ot" ou "ot")
                     return new ResultadoCategoria(
                             rs.getInt("funcionario_id"),
-                            rs.getInt("soma_ot"),
-                            rs.getInt("soma_ct"),
-                            rs.getInt("soma_rt"),
-                            rs.getInt("soma_rp"),
-                            rs.getInt("soma_la"),
-                            rs.getInt("soma_de"),
-                            rs.getInt("soma_dp")
+                            rs.getInt("ot"),
+                            rs.getInt("ct"),
+                            rs.getInt("rt"),
+                            rs.getInt("rp"),
+                            rs.getInt("la"),
+                            rs.getInt("de"),
+                            rs.getInt("dp")
                     );
                 }
             }
