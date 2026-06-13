@@ -11,35 +11,16 @@ public class RespostaDAO {
 
     public void salvar(Resposta resposta){
 
-        String sql =
-                "INSERT INTO resposta(" +
-                        "funcionario_id," +
-                        "pergunta_id," +
-                        "resposta" +
-                        ") VALUES (?,?,?)";
+        String sql = "INSERT INTO resposta(" + "funcionario_id," + "pergunta_id," + "resposta" + ") VALUES (?,?,?)";
 
-        try(
-                Connection conn =
-                        Conexao.conectar();
+        try(Connection conn = Conexao.conectar();
+                PreparedStatement ps = conn.prepareStatement(sql)){
 
-                PreparedStatement ps =
-                        conn.prepareStatement(sql)
-        ){
+            ps.setInt(1, resposta.getFuncionarioId());
 
-            ps.setInt(
-                    1,
-                    resposta.getFuncionarioId()
-            );
+            ps.setInt(2, resposta.getPerguntaId());
 
-            ps.setInt(
-                    2,
-                    resposta.getPerguntaId()
-            );
-
-            ps.setInt(
-                    3,
-                    resposta.getResposta()
-            );
+            ps.setInt(3, resposta.getResposta());
 
             ps.executeUpdate();
 
