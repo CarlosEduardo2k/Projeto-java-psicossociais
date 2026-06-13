@@ -7,8 +7,11 @@ import java.util.List;
 
 
 import dao.FuncionarioDAO;
+import dao.RespostaDAO;
 import dao.ResultadoCategoriaDAO;
 import model.Funcionario;
+import model.NivelRisco;
+import model.Resposta;
 import model.ResultadoCategoria;
 import questionario.BancoPerguntas;
 import questionario.Pergunta;
@@ -320,6 +323,18 @@ public class TelaQuestionario extends JFrame {
 
             } else {
 
+                Funcionario funcionario =
+                        new Funcionario(nome, cpf);
+
+                FuncionarioDAO funcionarioDAO =
+                        new FuncionarioDAO();
+
+                int funcionarioId =
+                        funcionarioDAO.salvar(funcionario);
+
+                RespostaDAO respostaDAO =
+                        new RespostaDAO();
+
                 // Variáveis responsáveis por acumular a pontuação
                 // de cada categoria do questionário
                 int somaOT = 0;
@@ -337,66 +352,98 @@ public class TelaQuestionario extends JFrame {
 
                     ButtonGroup grupo = gruposRespostas.get(i);
 
-                    // Obtém a resposta marcada pelo usuário
-                    int resposta = Integer.parseInt(
-                            grupo.getSelection().getActionCommand()
-                    );
+                    int respostaOriginal =
+                            Integer.parseInt(
+                                    grupo.getSelection()
+                                            .getActionCommand()
+                            );
 
-                    // Inverte a pontuação caso a pergunta seja invertida
+                    // Salva a resposta individual
+                    Resposta respostaBanco =
+                            new Resposta(
+                                    funcionarioId,
+                                    pergunta.getId(),
+                                    respostaOriginal
+                            );
+
+                    respostaDAO.salvar(respostaBanco);
+
+                    // Resposta usada para cálculo
+                    int respostaCalculada =
+                            respostaOriginal;
+
                     if(pergunta.isInvertida()){
-                        resposta = 6 - resposta;
+                        respostaCalculada =
+                                6 - respostaCalculada;
                     }
 
-                    // Soma a resposta na categoria correspondente
                     if(pergunta.getCategoria() == Categoria.OT){
-                        somaOT += resposta;
+                        somaOT += respostaCalculada;
                     }
 
                     if(pergunta.getCategoria() == Categoria.CT){
-                        somaCT += resposta;
+                        somaCT += respostaCalculada;
                     }
 
                     if(pergunta.getCategoria() == Categoria.RT){
-                        somaRT += resposta;
+                        somaRT += respostaCalculada;
                     }
 
                     if(pergunta.getCategoria() == Categoria.RP){
-                        somaRP += resposta;
+                        somaRP += respostaCalculada;
                     }
 
                     if(pergunta.getCategoria() == Categoria.LA){
-                        somaLA += resposta;
+                        somaLA += respostaCalculada;
                     }
 
                     if(pergunta.getCategoria() == Categoria.DE){
-                        somaDE += resposta;
+                        somaDE += respostaCalculada;
                     }
 
                     if(pergunta.getCategoria() == Categoria.DP){
-                        somaDP += resposta;
+                        somaDP += respostaCalculada;
                     }
                 }
+                NivelRisco otRisco =
+                        NivelRisco.definirPelaPontuacao(somaOT, 6);
 
-                // Cria o objeto funcionário com os dados recebidos
-                // da tela de login
-                Funcionario funcionario = new Funcionario(nome, cpf);
+                NivelRisco ctRisco =
+                        NivelRisco.definirPelaPontuacao(somaCT, 5);
 
-                // Salva o funcionário no banco
-                FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
+                NivelRisco rtRisco =
+                        NivelRisco.definirPelaPontuacao(somaRT, 5);
 
-                // Recebe o ID gerado pelo banco
-                int funcionarioId = funcionarioDAO.salvar(funcionario);
+                NivelRisco rpRisco =
+                        NivelRisco.definirPelaPontuacao(somaRP, 3);
+
+                NivelRisco laRisco =
+                        NivelRisco.definirPelaPontuacao(somaLA, 2);
+
+                NivelRisco deRisco =
+                        NivelRisco.definirPelaPontuacao(somaDE, 2);
+
+                NivelRisco dpRisco =
+                        NivelRisco.definirPelaPontuacao(somaDP, 2);
 
                 // Cria o objeto contendo os resultados do questionário
-                ResultadoCategoria resultado = new ResultadoCategoria(
-                        funcionarioId,
+                ResultadoCategoria resultado =
+                        new ResultadoCategoria(
+                                funcionarioId,
                                 somaOT,
                                 somaCT,
                                 somaRT,
                                 somaRP,
                                 somaLA,
                                 somaDE,
-                                somaDP
+                                somaDP,
+                                otRisco,
+                                ctRisco,
+                                rtRisco,
+                                rpRisco,
+                                laRisco,
+                                deRisco,
+                                dpRisco
                         );
 
                 // Salva as pontuações das categorias no banco
