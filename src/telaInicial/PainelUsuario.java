@@ -1,4 +1,5 @@
 package telaInicial;
+import dao.FuncionarioDAO;
 import painel.TelaQuestionario;
 
 import javax.swing.*;
@@ -34,6 +35,19 @@ public class PainelUsuario extends JPanel {
                 return;
             }
             JFrame janelaLogin = (JFrame) SwingUtilities.getWindowAncestor(this);
+
+            FuncionarioDAO dao =
+                    new FuncionarioDAO();
+
+            if(dao.jaRespondeu(cpf)){
+
+                JOptionPane.showMessageDialog(
+                        null,
+                        "Este CPF já respondeu o questionário."
+                );
+
+                return;
+            }
             if (janelaLogin != null) {
                 janelaLogin.dispose();
             }

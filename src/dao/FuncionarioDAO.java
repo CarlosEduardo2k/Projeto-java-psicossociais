@@ -174,5 +174,38 @@ public class FuncionarioDAO {
             System.out.println("Erro ao listar funcionarios: "+ e.getSQLState());
         }
        return listaFuncionarios;
+
+    }
+    public boolean jaRespondeu(String cpf){
+
+        String sql =
+                "SELECT COUNT(*) " +
+                        "FROM funcionario " +
+                        "WHERE cpf = ?";
+
+        try(
+                Connection conn =
+                        Conexao.conectar();
+
+                PreparedStatement ps =
+                        conn.prepareStatement(sql)
+        ){
+
+            ps.setString(1, cpf);
+
+            ResultSet rs =
+                    ps.executeQuery();
+
+            if(rs.next()){
+
+                return rs.getInt(1) > 0;
+            }
+
+        }catch(SQLException e){
+
+            throw new RuntimeException(e);
+        }
+
+        return false;
     }
 }
