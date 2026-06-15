@@ -94,13 +94,62 @@ public class PainelResultadosCategoria extends JPanel {
         ResultadoCategoria res = controller.obterNotasFuncionario(f.getId());
 
         if (res != null) {
-            conteudo.add(criarCardCategoria("Organização do Trabalho", res.getOt()));
-            conteudo.add(criarCardCategoria("Condições de Trabalho", res.getCt()));
-            conteudo.add(criarCardCategoria("Relações Socioprofissionais", res.getRt()));
-            conteudo.add(criarCardCategoria("Realização Profissional", res.getRp()));
-            conteudo.add(criarCardCategoria("Liberdade e Autonomia", res.getLa()));
-            conteudo.add(criarCardCategoria("Desgaste Emocional", res.getDp()));
-            conteudo.add(criarCardCategoria("Desvalorização Profissional", res.getDp()));
+
+            conteudo.add(
+                    criarCardCategoria(
+                            "Organização do Trabalho",
+                            res.getOt(),
+                            6
+                    )
+            );
+
+            conteudo.add(
+                    criarCardCategoria(
+                            "Condições de Trabalho",
+                            res.getCt(),
+                            5
+                    )
+            );
+
+            conteudo.add(
+                    criarCardCategoria(
+                            "Relações Socioprofissionais",
+                            res.getRt(),
+                            5
+                    )
+            );
+
+            conteudo.add(
+                    criarCardCategoria(
+                            "Realização Profissional",
+                            res.getRp(),
+                            3
+                    )
+            );
+
+            conteudo.add(
+                    criarCardCategoria(
+                            "Liberdade e Autonomia",
+                            res.getLa(),
+                            2
+                    )
+            );
+
+            conteudo.add(
+                    criarCardCategoria(
+                            "Desgaste Emocional",
+                            res.getDe(),
+                            2
+                    )
+            );
+
+            conteudo.add(
+                    criarCardCategoria(
+                            "Desvalorização Profissional",
+                            res.getDp(),
+                            2
+                    )
+            );
         } else {
             conteudo.add(new JLabel("Este funcionário ainda não possui questionários respondidos."));
         }
@@ -110,22 +159,31 @@ public class PainelResultadosCategoria extends JPanel {
         painelDetalhesDireita.repaint();
     }
 
-    private JPanel criarCardCategoria(String nomeCategoria, double nota) {
+    private JPanel criarCardCategoria(
+            String nomeCategoria,
+            int pontuacao,
+            int quantidadePerguntas
+    ) {
         JPanel card = new JPanel(new BorderLayout(5, 5));
         card.setBackground(new Color(238, 238, 238));
         card.setBorder(BorderFactory.createCompoundBorder(
-                BorderFactory.createLineBorder(new Color(210, 210, 210)), new EmptyBorder(10, 15, 10, 15)
+                BorderFactory.createLineBorder(new Color(210, 210, 210)),
+                new EmptyBorder(10, 15, 10, 15)
         ));
         card.setMaximumSize(new Dimension(Integer.MAX_VALUE, 65));
 
         JLabel lblNome = new JLabel(nomeCategoria);
         lblNome.setFont(new Font("Segoe UI", Font.BOLD, 13));
 
-        JLabel lblNota = new JLabel(String.format("%.1f", nota));
+        JLabel lblNota = new JLabel(String.valueOf(pontuacao));
         lblNota.setFont(new Font("Segoe UI", Font.BOLD, 16));
 
-        // Descobre o risco usando o Enum isolado (Mágica da separação!)
-        NivelRisco risco = NivelRisco.definirPelaNota(nota);
+        NivelRisco risco =
+                NivelRisco.definirPelaPontuacao(
+                        pontuacao,
+                        quantidadePerguntas
+                );
+
         lblNota.setForeground(risco.getCor());
 
         JPanel painelSuperior = new JPanel(new BorderLayout());
@@ -133,8 +191,12 @@ public class PainelResultadosCategoria extends JPanel {
         painelSuperior.add(lblNome, BorderLayout.WEST);
         painelSuperior.add(lblNota, BorderLayout.EAST);
 
-        JProgressBar barraProgresso = new JProgressBar(0, 50);
-        barraProgresso.setValue((int) (nota * 10));
+        JProgressBar barraProgresso = new JProgressBar(
+                quantidadePerguntas,
+                quantidadePerguntas * 5
+        );
+
+        barraProgresso.setValue(pontuacao);
         barraProgresso.setForeground(risco.getCor());
         barraProgresso.setBackground(Color.WHITE);
         barraProgresso.setBorderPainted(false);
@@ -143,7 +205,6 @@ public class PainelResultadosCategoria extends JPanel {
         JLabel lblStatus = new JLabel(risco.getDescricao());
         lblStatus.setFont(new Font("Segoe UI", Font.BOLD, 11));
         lblStatus.setForeground(risco.getCor());
-        lblStatus.setBorder(new EmptyBorder(0, 10, 0, 0));
 
         JPanel painelInferior = new JPanel(new BorderLayout());
         painelInferior.setOpaque(false);
