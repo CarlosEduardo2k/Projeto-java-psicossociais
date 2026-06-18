@@ -1,6 +1,6 @@
-package telaInicial;
+package view.paineis;
 
-import painel.TelaAdmin;
+import view.telaInicial.TelaAdmin;
 
 import javax.swing.*;
 import java.awt.*;

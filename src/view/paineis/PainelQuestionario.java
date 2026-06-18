@@ -1,4 +1,4 @@
-package painel;
+package view.paineis;
 
 import javax.swing.*;
 import java.awt.*;
@@ -17,7 +17,7 @@ import questionario.BancoPerguntas;
 import questionario.Pergunta;
 import questionario.Categoria;
 
-public class TelaQuestionario extends JFrame {
+public class PainelQuestionario extends JFrame {
 
     // Componentes principais da tela
     private JPanel painelPrincipal;
@@ -27,7 +27,7 @@ public class TelaQuestionario extends JFrame {
 
     private List<Pergunta> perguntas;
 
-    public TelaQuestionario(String nome, String cpf) {
+    public PainelQuestionario(String nome, String cpf) {
         setLayout(new BorderLayout());
 
         // =========================
@@ -483,15 +483,9 @@ public class TelaQuestionario extends JFrame {
 
         add(painelCabecalho, BorderLayout.NORTH);
         add(scroll, BorderLayout.CENTER);
-
         setTitle("Questionário Psicossocial");
-
-        setSize(900, 600);
-
         setExtendedState(JFrame.MAXIMIZED_BOTH);
-
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
         setVisible(true);
     }
 }
