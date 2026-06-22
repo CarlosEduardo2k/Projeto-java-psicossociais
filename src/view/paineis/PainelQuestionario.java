@@ -16,7 +16,7 @@ import model.ResultadoCategoria;
 import questionario.BancoPerguntas;
 import questionario.Pergunta;
 import questionario.Categoria;
-import telaInicial.TelaAcesso;
+import view.telaInicial.TelaAcesso;
 
 public class PainelQuestionario extends JFrame {
 
@@ -468,6 +468,8 @@ public class PainelQuestionario extends JFrame {
                 JOptionPane.showMessageDialog(this,"Respostas enviadas com sucesso! \n Obrigado por Participar ", "Concluído", JOptionPane.INFORMATION_MESSAGE);
                 TelaAcesso retorno = new TelaAcesso();
                 retorno.setVisible(true);
+
+                this.dispose();
             }
         });
 
