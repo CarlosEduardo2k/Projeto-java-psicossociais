@@ -54,9 +54,7 @@ public enum NivelRisco {
         int minimo = quantidadePerguntas;
         int maximo = quantidadePerguntas * 5;
 
-        double percentual =
-                ((double) (pontuacao - minimo)
-                        / (maximo - minimo))
+        double percentual = ((double) (pontuacao - minimo) / (maximo - minimo))
                         * 100;
 
         if (percentual >= 67) {

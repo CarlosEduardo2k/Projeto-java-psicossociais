@@ -1,6 +1,8 @@
-package painel;
+package view.telaInicial;
 
-import telaInicial.TelaAcesso;
+import view.paineis.PainelRelatorioGeral;
+import view.paineis.PainelRespostasIndividuais;
+import view.paineis.PainelResultadosCategoria;
 
 import javax.swing.*;
 import java.awt.*;
@@ -14,9 +16,8 @@ public class TelaAdmin extends JFrame {
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setLayout(new BorderLayout());
 
-        // ==================================================
-        // 1. BARRA DE TOPO (HEADER)
-        // ==================================================
+        // 1. BARRA DE TOPO
+
         JPanel painelTopo = new JPanel(new BorderLayout());
         painelTopo.setBackground(new Color(25, 70, 130)); // Azul padrão do seu questionário
         painelTopo.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20)); // Padding interno
@@ -25,7 +26,7 @@ public class TelaAdmin extends JFrame {
         lblTituloSistema.setFont(new Font("Segoe UI", Font.BOLD, 16));
         lblTituloSistema.setForeground(Color.WHITE);
 
-        // Botão Sair com estilo Flat moderno
+        // Botão Sair
         JButton btnSair = new JButton("Sair");
         btnSair.setFont(new Font("Segoe UI", Font.BOLD, 13));
         btnSair.setBackground(new Color(204, 51, 51)); // Vermelho discreto para saída
@@ -34,6 +35,7 @@ public class TelaAdmin extends JFrame {
         btnSair.setBorder(BorderFactory.createEmptyBorder(6, 16, 6, 16));
         btnSair.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
+        // configuração do botão para voltar para a tela inicial
         btnSair.addActionListener(e -> {
             this.dispose();
             TelaAcesso telaInicial = new TelaAcesso();
@@ -49,15 +51,17 @@ public class TelaAdmin extends JFrame {
         JTabbedPane abas = new JTabbedPane();
         abas.setFont(new Font("Segoe UI", Font.BOLD, 13));
 
-        // Inicialização dos painéis reais (refeita de forma limpa)
+        // Inicialização dos painéis
         PainelRespostasIndividuais abaRespostasIndividuais = new PainelRespostasIndividuais();
         PainelResultadosCategoria abaResultadosCategoria = new PainelResultadosCategoria();
-        PainelCadastroAdmin abaCadastroAdmin = new PainelCadastroAdmin();
+        PainelRelatorioGeral abaRelatorioGeral = new PainelRelatorioGeral();
+
 
         // Adicionando as abas ativas ao componente
         abas.addTab("Respostas por Categoria", abaResultadosCategoria);// Ativada!
         abas.addTab("Respostas individuais", abaRespostasIndividuais);
-        abas.addTab("Cadastrar Administrador", abaCadastroAdmin);
+        abas.addTab("Relatorio geral", abaRelatorioGeral);
+
 
         // ==================================================
         // 3. MONTAGEM FINAL DA TELA
@@ -65,7 +69,5 @@ public class TelaAdmin extends JFrame {
         add(painelTopo, BorderLayout.NORTH); // Topo fixo no Norte
         add(abas, BorderLayout.CENTER);      // Abas ocupam todo o resto do espaço
 
-        // Garante que a tela abra centralizada se não estiver maximizada
-        setLocationRelativeTo(null);
     }
 }

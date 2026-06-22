@@ -39,8 +39,7 @@ public class FuncionarioDAO {
          * RETURNING id é uma funcionalidade do PostgreSQL
          * que devolve o ID criado logo após o INSERT.
          */
-        String sql =
-                "INSERT INTO funcionario(nome, cpf) VALUES (?, ?) RETURNING id";
+        String sql = "INSERT INTO funcionario(nome, cpf) VALUES (?, ?) RETURNING id";
 
         try (
                 /*
@@ -163,11 +162,8 @@ public class FuncionarioDAO {
         ResultSet rs = stmt.executeQuery()){
 
             while (rs.next()){
-                // Passamos o nome e o cpf direto no construtor que o seu Model exige!
                 Funcionario f = new Funcionario(rs.getString("nome"), rs.getString("cpf"));
-                // O id a gente puxa separado, já que o compilador não reclamou do setId
                 f.setId(rs.getInt("id"));
-                // Adiciona o funcionário pronto na lista
                 listaFuncionarios.add(f);
             }
         } catch (java.sql.SQLException e){
@@ -178,23 +174,13 @@ public class FuncionarioDAO {
     }
     public boolean jaRespondeu(String cpf){
 
-        String sql =
-                "SELECT COUNT(*) " +
-                        "FROM funcionario " +
-                        "WHERE cpf = ?";
+        String sql = "SELECT COUNT(*) " + "FROM funcionario " + "WHERE cpf = ?";
 
-        try(
-                Connection conn =
-                        Conexao.conectar();
-
-                PreparedStatement ps =
-                        conn.prepareStatement(sql)
-        ){
-
+        try(Connection conn = Conexao.conectar();
+            PreparedStatement ps =conn.prepareStatement(sql)){
             ps.setString(1, cpf);
 
-            ResultSet rs =
-                    ps.executeQuery();
+            ResultSet rs = ps.executeQuery();
 
             if(rs.next()){
 

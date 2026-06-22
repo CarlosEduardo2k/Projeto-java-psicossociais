@@ -1,6 +1,5 @@
-package telaInicial;
+package view.paineis;
 import dao.FuncionarioDAO;
-import painel.TelaQuestionario;
 
 import javax.swing.*;
 import java.awt.*;
@@ -51,7 +50,7 @@ public class PainelUsuario extends JPanel {
             if (janelaLogin != null) {
                 janelaLogin.dispose();
             }
-            TelaQuestionario  TelaQuestoes = new TelaQuestionario(nome, cpf);
+            PainelQuestionario TelaQuestoes = new PainelQuestionario(nome, cpf);
             TelaQuestoes.setVisible(true);
         });
         // Alinhamentos

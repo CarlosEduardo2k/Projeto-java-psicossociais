@@ -1,4 +1,4 @@
-package painel;
+package view.paineis;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -17,7 +17,7 @@ public class PainelResultadosCategoria extends JPanel {
     private JPanel painelDetalhesDireita;
 
     public PainelResultadosCategoria() {
-        // Inicializa o controlador (Gerente de Lógica)
+        // Inicializa o controlador
         this.controller = new RespostasIndividuaisController();
 
         setLayout(new BorderLayout());
@@ -95,61 +95,13 @@ public class PainelResultadosCategoria extends JPanel {
 
         if (res != null) {
 
-            conteudo.add(
-                    criarCardCategoria(
-                            "Organização do Trabalho",
-                            res.getOt(),
-                            6
-                    )
-            );
-
-            conteudo.add(
-                    criarCardCategoria(
-                            "Condições de Trabalho",
-                            res.getCt(),
-                            5
-                    )
-            );
-
-            conteudo.add(
-                    criarCardCategoria(
-                            "Relações Socioprofissionais",
-                            res.getRt(),
-                            5
-                    )
-            );
-
-            conteudo.add(
-                    criarCardCategoria(
-                            "Realização Profissional",
-                            res.getRp(),
-                            3
-                    )
-            );
-
-            conteudo.add(
-                    criarCardCategoria(
-                            "Liberdade e Autonomia",
-                            res.getLa(),
-                            2
-                    )
-            );
-
-            conteudo.add(
-                    criarCardCategoria(
-                            "Desgaste Emocional",
-                            res.getDe(),
-                            2
-                    )
-            );
-
-            conteudo.add(
-                    criarCardCategoria(
-                            "Desvalorização Profissional",
-                            res.getDp(),
-                            2
-                    )
-            );
+            conteudo.add(criarCardCategoria("Organização do Trabalho", res.getOt(), 6));
+            conteudo.add(criarCardCategoria("Condições de Trabalho", res.getCt(), 5));
+            conteudo.add(criarCardCategoria("Relações Socioprofissionais", res.getRt(), 5));
+            conteudo.add(criarCardCategoria("Realização Profissional", res.getRp(), 3));
+            conteudo.add(criarCardCategoria("Liberdade e Autonomia", res.getLa(),2));
+            conteudo.add(criarCardCategoria("Desgaste Emocional",res.getDe(), 2));
+            conteudo.add(criarCardCategoria("Desvalorização Profissional", res.getDp(), 2));
         } else {
             conteudo.add(new JLabel("Este funcionário ainda não possui questionários respondidos."));
         }
@@ -178,11 +130,7 @@ public class PainelResultadosCategoria extends JPanel {
         JLabel lblNota = new JLabel(String.valueOf(pontuacao));
         lblNota.setFont(new Font("Segoe UI", Font.BOLD, 16));
 
-        NivelRisco risco =
-                NivelRisco.definirPelaPontuacao(
-                        pontuacao,
-                        quantidadePerguntas
-                );
+        NivelRisco risco = NivelRisco.definirPelaPontuacao(pontuacao, quantidadePerguntas);
 
         lblNota.setForeground(risco.getCor());
 

@@ -1,4 +1,7 @@
-package telaInicial;
+package view.telaInicial;
+
+import view.paineis.PainelAdmin;
+import view.paineis.PainelUsuario;
 
 import javax.swing.*;
 import java.awt.*;

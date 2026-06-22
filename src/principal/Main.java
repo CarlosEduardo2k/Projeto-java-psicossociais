@@ -1,6 +1,6 @@
 package principal;
 
-import telaInicial.TelaAcesso;
+import view.telaInicial.TelaAcesso;
 import javax.swing.SwingUtilities;
 
 public class Main {

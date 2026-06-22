@@ -1,4 +1,4 @@
-package painel;
+package view.paineis;
 
 import controller.RespostasIndividuaisController;
 import model.Funcionario;
@@ -47,7 +47,7 @@ public class PainelRespostasIndividuais extends JPanel {
         jListFuncionarios.setFont(new Font("Segoe UI", Font.PLAIN, 13));
         jListFuncionarios.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
-        // Customização visual da linha selecionada (Azul escuro comercial)
+        // Customização visual da linha selecionada
         jListFuncionarios.setSelectionBackground(new Color(0, 51, 102));
         jListFuncionarios.setSelectionForeground(Color.WHITE);
         jListFuncionarios.setFixedCellHeight(45); // Dá espaço para respirar
@@ -96,7 +96,7 @@ public class PainelRespostasIndividuais extends JPanel {
         add(painelEsquerdo, BorderLayout.WEST);
 
         // =========================================================================
-        // 2. PAINEL DIREITO: Exibição das Respostas (Com Rolagem)
+        // 2. PAINEL DIREITO: Exibição das Respostas
         // =========================================================================
         JPanel painelDireitoMaster = new JPanel(new BorderLayout(10, 10));
         painelDireitoMaster.setBackground(Color.WHITE);
