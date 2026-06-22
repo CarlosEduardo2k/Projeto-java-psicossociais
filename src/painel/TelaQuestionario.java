@@ -16,6 +16,7 @@ import model.ResultadoCategoria;
 import questionario.BancoPerguntas;
 import questionario.Pergunta;
 import questionario.Categoria;
+import telaInicial.TelaAcesso;
 
 public class TelaQuestionario extends JFrame {
 
@@ -464,8 +465,9 @@ public class TelaQuestionario extends JFrame {
                 System.out.println("DE = " + somaDE);
                 System.out.println("DP = " + somaDP);
 
-                JOptionPane.showMessageDialog(this,"Respostas inviadas com sucesso! \n Obrigado por Participar ", "Concluído", JOptionPane.INFORMATION_MESSAGE);
-                dispose();
+                JOptionPane.showMessageDialog(this,"Respostas enviadas com sucesso! \n Obrigado por Participar ", "Concluído", JOptionPane.INFORMATION_MESSAGE);
+                TelaAcesso retorno = new TelaAcesso();
+                retorno.setVisible(true);
             }
         });
 
